@@ -36,7 +36,7 @@ app.use(express.static('server/public'));
 // ROUTES
 // --------------------
 app.get('/api/music', (req, res) => {
-  const queryText = `SELECT * FROM "songs";`;
+  const queryText = `SELECT * FROM "songs" ORDER BY "artist" ASC;`;
 
   pool.query(queryText)
     .then((dbResponse) => {
@@ -45,6 +45,27 @@ app.get('/api/music', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      res.sendStatus(500);
+    });
+});
+
+app.post('/api/music', (req, res) => {
+  // music.push(req.body)
+  const queryText = `INSERT INTO "songs" ("artist", "track", "rank", "published")
+    VALUES ($1, $2, $3, $4);`;
+
+  pool.query(queryText, [
+    req.body.artist,
+    req.body.track,
+    req.body.rank,
+    req.body.published,
+  ])
+    .then((dbResponse) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
     });
 });
 

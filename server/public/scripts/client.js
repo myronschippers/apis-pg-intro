@@ -29,7 +29,7 @@ function getMusicData() {
   $("#musicTableBody").empty();
   $.ajax({
     type: 'GET',
-    url: '/api/musicLibrary'
+    url: '/api/music'
   }).then(function (response) {
     console.log("server response:", response);
     // append data to the DOM
@@ -40,7 +40,7 @@ function getMusicData() {
 function postMusicData(musicData) {
   $.ajax({
     type: 'POST',
-    url: '/api/musicLibrary',
+    url: '/api/music',
     data: musicData
   }).then( function (response) {
     clearForm();
@@ -60,6 +60,7 @@ function clearForm() {
 }
 
 function render(musicLibrary) {
+  $('.js-musicTableBody').empty();
   for (let i = 0; i < musicLibrary.length; i++) {
     const musicItem = musicLibrary[i];
     $('.js-musicTableBody').append(`

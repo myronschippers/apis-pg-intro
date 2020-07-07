@@ -15,8 +15,6 @@ router.get('/', (req, res) => {
     });
 });
 
-Object.property = 'name'
-
 router.post('/', (req, res) => {
   // music.push(req.body)
   const musicData = req.body;

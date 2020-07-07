@@ -24,5 +24,5 @@ app.use(express.static('server/public'));
 // --------------------
 
 app.listen(PORT, () => {
-    console.log('up and running on port', PORT);
+  console.log('up and running on port', PORT);
 });

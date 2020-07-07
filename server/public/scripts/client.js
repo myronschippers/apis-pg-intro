@@ -1,8 +1,8 @@
 $(document).ready(onReady);
 
 function onReady() {
-    getMusicData();
-    $('.js-add').on('click', clickAddMusic);
+  getMusicData();
+  $('.js-add').on('click', clickAddMusic);
 }
 
 //
@@ -10,14 +10,14 @@ function onReady() {
 // ------------------------------
 
 function clickAddMusic() {
-    let payloadObject = {
-        artist: $('.js-artist').val(),
-        track: $('.js-track').val(),
-        rank: $('.js-rank').val(),
-        published: $('.js-published').val()
-    };
+  let payloadObject = {
+    artist: $('.js-artist').val(),
+    track: $('.js-track').val(),
+    rank: $('.js-rank').val(),
+    published: $('.js-published').val()
+  };
 
-    postMusicData(payloadObject);
+  postMusicData(payloadObject);
 }
 
 //
@@ -26,26 +26,26 @@ function clickAddMusic() {
 
 // get artist data from the server
 function getMusicData() {
-    $("#musicTableBody").empty();
-    $.ajax({
-        type: 'GET',
-        url: '/api/musicLibrary'
-    }).then(function (response) {
-        console.log("server response:", response);
-        // append data to the DOM
-        render(response);
-    });
+  $("#musicTableBody").empty();
+  $.ajax({
+    type: 'GET',
+    url: '/api/musicLibrary'
+  }).then(function (response) {
+    console.log("server response:", response);
+    // append data to the DOM
+    render(response);
+  });
 }
 
 function postMusicData(musicData) {
-    $.ajax({
-        type: 'POST',
-        url: '/api/musicLibrary',
-        data: musicData
-    }).then( function (response) {
-        clearForm();
-        getMusicData();
-    });
+  $.ajax({
+    type: 'POST',
+    url: '/api/musicLibrary',
+    data: musicData
+  }).then( function (response) {
+    clearForm();
+    getMusicData();
+  });
 }
 
 //
@@ -53,22 +53,22 @@ function postMusicData(musicData) {
 // ------------------------------
 
 function clearForm() {
-    $('.js-artist').val('');
-    $('.js-track').val('');
-    $('.js-rank').val('');
-    $('.js-published').val('');
+  $('.js-artist').val('');
+  $('.js-track').val('');
+  $('.js-rank').val('');
+  $('.js-published').val('');
 }
 
 function render(musicLibrary) {
-    for (let i = 0; i < musicLibrary.length; i++) {
-        const musicItem = musicLibrary[i];
-        $('.js-musicTableBody').append(`
-            <tr>
-                <td>${musicItem.artist}</td>
-                <td>${musicItem.track}</td>
-                <td>${musicItem.rank}</td>
-                <td>${musicItem.published}</td>
-            </tr>
-        `);
-    }
+  for (let i = 0; i < musicLibrary.length; i++) {
+    const musicItem = musicLibrary[i];
+    $('.js-musicTableBody').append(`
+      <tr>
+        <td>${musicItem.artist}</td>
+        <td>${musicItem.track}</td>
+        <td>${musicItem.rank}</td>
+        <td>${musicItem.published}</td>
+      </tr>
+    `);
+  }
 }

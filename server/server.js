@@ -35,12 +35,12 @@ app.use(express.static('server/public'));
 //
 // ROUTES
 // --------------------
+
 app.get('/api/music', (req, res) => {
   const queryText = `SELECT * FROM "songs" ORDER BY "artist" ASC;`;
 
   pool.query(queryText)
     .then((dbResponse) => {
-      console.log(dbResponse);
       res.send(dbResponse.rows);
     })
     .catch((err) => {
